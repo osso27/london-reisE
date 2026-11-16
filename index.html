@@ -674,7 +674,7 @@ function startGps(dayId){
  gps.on=true;setHint("Suche euren Standort …");
  document.querySelectorAll(".locbtn").forEach(b=>b.textContent="Standort aus");
  try{gps.id=navigator.geolocation.watchPosition(p=>{gps.pos=toXY(p.coords.latitude,p.coords.longitude);gps.acc=p.coords.accuracy;gps.day=currentDay();guide()},
-  e=>{if(e.code===1){stopGps(true);setHint("Standort ist hier gesperrt. In der Claude-App darf eine Seite den Standort nicht abfragen. Nutzt die GPS-Version der Seite (Link von Osman) oder den Knopf „Google Maps mit Sprachführung“.","warn")}
+  e=>{if(e.code===1){stopGps(true);setHint(window.self!==window.top?"Standort ist hier gesperrt. In der Claude-App darf eine Seite den Standort nicht abfragen. Nutzt die GPS-Version der Seite (Link von Osman) oder den Knopf „Google Maps mit Sprachführung“.":"Das iPhone hat den Standort abgelehnt. So erlaubt ihr ihn: <b>Einstellungen</b> → <b>Datenschutz &amp; Sicherheit</b> → <b>Ortungsdienste</b> einschalten → <b>Safari-Websites</b> → „Beim Verwenden der App“. Dann <b>Einstellungen</b> → <b>Apps</b> → <b>Safari</b> → <b>Standort</b> → „Fragen“. App schließen, neu öffnen, wieder „Mein Standort“ tippen.","warn")}
    else if(!gps.pos)setHint("Suche euren Standort … Draußen unter freiem Himmel klappt es besser.","warn")},
   {enableHighAccuracy:true,maximumAge:5000,timeout:20000})}catch(e){stopGps(true);setHint("Standort ist hier gesperrt. Nutzt den Knopf „Google Maps mit Sprachführung“.","warn")}
 }
